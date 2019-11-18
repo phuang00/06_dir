@@ -12,8 +12,7 @@ int main(int argc, char const *argv[]) {
     file = argv[1];
   }
   else{
-    printf("Directory to Scan: ");
-    fgets(file, 101, stdin);
+    file = ".";
   }
   DIR *stream = opendir(file);
   if (errno > 0){
@@ -24,9 +23,11 @@ int main(int argc, char const *argv[]) {
   printf("Statistic for directory: %s\n", file);
   while (entry != NULL) {
     struct stat info;
-    stat(entry->d_name, &info);
+    char *name;
+    sprintf(name, "%s/%s", file, entry->d_name);
+    stat(name, &info);
     if (errno > 0){
-      printf("errno: %s\n", strerror(errno));
+      printf("errno: %d, %s\n", errno, strerror(errno));
     }
     size += info.st_size;
     entry = readdir(stream);
