@@ -6,14 +6,22 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int main() {
-  DIR *stream = opendir(".");
+int main(int argc, char const *argv[]) {
+  char *file;
+  if (argc > 1){
+    file = argv[1];
+  }
+  else{
+    printf("Directory to Scan: ");
+    fgets(file, 101, stdin);
+  }
+  DIR *stream = opendir(file);
   if (errno > 0){
     printf("errno: %s\n", strerror(errno));
   }
   struct dirent *entry = readdir(stream);
   int size = 0;
-  printf("Statistic for directory: .\n");
+  printf("Statistic for directory: %s\n", file);
   while (entry != NULL) {
     struct stat info;
     stat(entry->d_name, &info);
