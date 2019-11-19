@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]) {
   printf("Statistic for directory: %s\n", file);
   while (entry != NULL) {
     struct stat info;
-    char *name;
+    char name[500];
     sprintf(name, "%s/%s", file, entry->d_name);
     stat(name, &info);
     if (errno > 0){
