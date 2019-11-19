@@ -7,12 +7,14 @@
 #include <sys/stat.h>
 
 int main(int argc, char const *argv[]) {
-  char *file;
+  char file[100];
   if (argc > 1){
-    file = argv[1];
+    strcpy(file, argv[1]);
   }
   else{
-    file = ".";
+    printf("Directory to Scan: ");
+    fgets(file, 100, stdin);
+    file[strlen(file) - 1] = 0;
   }
   DIR *stream = opendir(file);
   if (errno > 0){

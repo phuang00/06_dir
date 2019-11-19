@@ -5,7 +5,7 @@ dir.o: dir.c
 	gcc -c dir.c
 
 run:
-	./test_dir ..
+	./test_dir
 
 clean:
 	rm *.o
